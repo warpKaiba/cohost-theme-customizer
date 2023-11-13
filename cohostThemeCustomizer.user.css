@@ -3,9 +3,10 @@
 @description  Customizable theme for cohost
 @namespace    cohost.org/kiophen
 @author       kiophen
-@version      3.0.0
+@version      3.0.1
 @license      MIT
 @preprocessor less
+@updateURL    https://github.com/warpKaiba/cohost-theme-customizer/raw/main/cohostThemeCustomizer.user.css
 
 @var select   ch_theme     'Preset theme picker' {
     'Use custom colors      *': '0',
