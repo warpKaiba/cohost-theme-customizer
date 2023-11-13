@@ -1,0 +1,638 @@
+/* ==UserStyle==
+@name         Cohost - Theme Customizer
+@description  Customizable theme for cohost
+@namespace    cohost.org/kiophen
+@author       kiophen
+@version      3.0.0
+@license      MIT
+@preprocessor less
+
+@var select   ch_theme     'Preset theme picker' {
+    'Use custom colors      *': '0',
+    'Eggbug Dark             ': '1',
+    'Gelmew                  ': '12',
+    'Chitter                 ': '5',
+    'Denden                  ': '22',
+    'Monosodium              ': '6',
+    'Terminal                ': '3',
+    'Leaf                    ': '7',
+    'Greyscale               ': '13',
+    'Adwaita Dark            ': '15',
+    'Lucario                 ': '4',
+    'Space                   ': '17',
+    'Core                    ': '19',
+    'Cave                    ': '20',
+    'Water                   ': '21',
+    'Entei                   ': '9',
+    'Raikou                  ': '8',
+    'Suicune                 ': '10',
+    'Mew                     ': '11',
+    'Eggbug Light            ': '2',
+    'Adwaita Light           ': '14',
+}
+
+@var range    ch_ct_custom        'Custom Dark-Light contrast'   [-0.4, -1, 1, 0.01]
+@var color    ch_bg_custom        'Custom background color'      #292929
+@var color    ch_pr_custom        'Custom text color'            #ffff8f
+@var color    ch_fg_custom        'Custom Secondary-text color'  #70ffdd
+@var color    ch_ac_custom        'Custom accent color'          #fb86d0
+
+@var checkbox ch_bi        'Use custom background image'  0
+@var text     ch_bimg      'Custom background url - has to be surrounded by quotes'        '""'
+@var checkbox ch_nocrimes  'Force custom css chosts to conform to theme' 0
+
+==/UserStyle== */
+
+
+@-moz-document domain("cohost.org") {
+ 
+
+    
+    @themes_list: @ch_ct_custom, @ch_bg_custom, @ch_pr_custom, @ch_fg_custom, @ch_ac_custom, @ch_bimg,
+                    -0.4, #441122, #ddaa88, #ffbbdd, #ff8800, "",
+                    -0.7, #fffcfa, #86024a, #ff7a18, #e127a5, "",
+                    -0.1, #031504, #008102, #009d07, #43ee00, "",
+                     0.4, #173855, #f1e831, #f0ea9b, #ffffff, "",
+                   -0.38, #3f183f, #fbf2fa, #de6bd9, #cd15e9, "",
+                    -0.5, #143150, #c3e3ef, #01a4ee, #ffd22e, "",
+                    -0.7, #4f5655, #e0efc3, #b7b7b7, #92f400, "",
+                     0.7, #f2d446, #11201f, #2795b8, #bb67c8, "",
+                    -0.7, #71401a, #f5d7d7, #ffbe6f, #a0a0a0, "",
+                    -0.3, #2bc7d7, #fbffff, #f8fcff, #7f52be, "",
+                     0.3, #ffb9cd, #f44893, #ff6eb6, #0d8eb3, "",
+                    -0.2, #002624, #70cbb2, #3be9b3, #7b56e0, "",
+                    -0.4, #404040, #ffffff, #bcbcbc, #ffffff, "",
+                    -0.5, #fcfcfd, #000000, #292929, #4A90D9, "",
+                    -0.5, #525552, #FAFAF8, #d1d1d1, #317ee2, "",
+                    -0.5, #091d00, #37ff00, #1eff00, #00ff10, "https://i.imgur.com/4qDBPIQ.png",
+                    -0.4, #000010, #7e92ff, #4d4dd0, #e6e6fc, "https://i.imgur.com/8Of0YkR.png",
+                    -0.4, #2f3346, #d8daed, #b0b1e6, #ffd667, "https://i.imgur.com/oGGznRu.png",
+                    -0.4, #054b4e, #00d9b5, #00907d, #6f6cfb, "https://i.imgur.com/psTaRA6.png",
+                    -0.4, #020f39, #eef3ff, #8bc7ec, #62b26c, "https://i.imgur.com/WLYhvES.png",
+                     0.4, #0369bc, #a6daff, #04196a, #44d2f4, "https://i.imgur.com/qqTEJOF.png",
+                    -0.2, #013a3e, #f3f9f7, #a5f1df, #2fe6c4, "https://i.imgur.com/AgQ35ib.png";
+    
+    :root {
+        
+        @ch_ct: extract(@themes_list, (@ch_theme*6) + 1);
+        @ch_bg: extract(@themes_list, (@ch_theme*6) + 2);
+        @ch_pr: extract(@themes_list, (@ch_theme*6) + 3);
+        @ch_fg: extract(@themes_list, (@ch_theme*6) + 4);
+        @ch_ac: extract(@themes_list, (@ch_theme*6) + 5);
+        @ch_bimg2:  extract(@themes_list, (@ch_theme*6) + 6);
+        
+        @ch_pr_h: hue(@ch_pr);
+        @ch_pr_s: saturation(@ch_pr);
+        @ch_pr_l: lightness(@ch_pr);
+
+        @ch_bg_h: hue(@ch_bg);
+        @ch_bg_s: saturation(@ch_bg);
+        @ch_bg_l: lightness(@ch_bg);
+
+        @ch_bg_0: hsl(@ch_bg_h, @ch_bg_s, (@ch_bg_l+ ((@ch_ct*-2)*10)));
+        @ch_bg_1: @ch_bg;
+        @ch_bg_2: hsl(@ch_bg_h, @ch_bg_s, (@ch_bg_l+ ((@ch_ct)*10)));
+        @ch_bg_3: hsl(@ch_bg_h, @ch_bg_s, (@ch_bg_l+ ((@ch_ct*2)*10)));
+        @ch_bg_4: hsl(@ch_bg_h, @ch_bg_s, (@ch_bg_l+ ((@ch_ct*3)*10)));
+        
+        --color-notWhite: @ch_fg;
+
+        --color-prose-100: @ch_pr;
+        --color-prose-200: hsl(@ch_pr_h, @ch_pr_s, (@ch_pr_l+ ((@ch_ct*3)*10) ));
+        --color-prose-300: hsl(@ch_pr_h, @ch_pr_s, (@ch_pr_l+ ((@ch_ct*6)*10) ));
+        
+        --color-dark0: @ch_bg_0;
+        --color-dark1: @ch_bg_1;
+        --color-dark2: @ch_bg_2;
+        --color-dark3: @ch_bg_3;
+        --color-notBlack: @ch_bg_4;
+
+        --color-accent: @ch_ac;
+        
+        @color-accent-contrast: contrast(@ch_bg, @ch_ac, @ch_pr);
+        --color-accent-contrast-dark: mix(@color-accent-contrast, @ch_bg_0, 50%);
+        --color-accent-contrast-lite: contrast(@ch_ac, @ch_bg, @ch_pr);
+        --color-bg-faded: fadeout(@ch_bg_1, 60%);
+
+        --color-cherry: var(--color-accent);
+        --color-cherry-bg: var(--color-dark1);
+        --color-strawberry: var(--color-notWhite);
+        --color-strawberry-bg: var(--color-dark1);
+        --color-mango: var(--color-notWhite);
+        --color-mango-bg: var(--color-dark1);
+        --color-longan: var(--color-notWhite);
+        --color-longan-bg: var(--color-dark2);
+
+        /* haphazard cohost97 compatibility for fun */
+
+        --win9x-black: @ch_fg;
+        --win9x-black-shadow: rgba(var(--win9x-black-raw), var(--shadowOpacity));
+        --win9x-darkgray: @ch_bg_4;
+        --win9x-gray: @ch_bg;
+        --win9x-lightgray: @ch_bg_2;
+        --win9x-darkwhite: @ch_bg_2;
+        --win9x-offwhite: @ch_bg_3;
+        --win9x-white: @ch_bg_0;
+        --win9x-blue: #0000ff;
+        --win9x-darkblue: #000080;
+        --win9x-teal: #007b7b;
+        --win9x-vivid-cerulean: #02A5FF;
+        --win9x-electric-orange: rgb(var(--win9x-electric-orange-raw));
+        --win9x-electric-orange-raw: 255, 51, 0;
+        --win9x-ryb-green: #66CC33;
+        --win9x-tangerine-yellow: #FFCC00;
+        --win9x-office-comment: @ch_bg_0;
+        --cohost-purple: rgb(var(--color-foreground));
+        
+        & when (@ch_bi = 1) {
+        main, .container.flex-col {
+            background: url("@{ch_bimg2}");
+            background-attachment: fixed;
+        }
+    }
+    
+        & when (@ch_bi = 0) {
+            main, .container.flex-col, div.mt-16.flex-col {
+                /*
+                .mixin(@ch_theme);
+                */
+                background: url("@{ch_bimg2}");
+                background-attachment: fixed;
+            }
+        }
+        
+    }
+    
+    div[data-post-body] > div.prose * when (@ch_nocrimes = 1) {
+        color: unset !important; 
+        background: unset !important;
+        background-color: revert !important;
+    }
+    
+    
+    /* login screen */
+    .duotone-wrapper::before {
+        background-color: var(--color-dark1);
+        mix-blend-mode: color;
+    }
+    
+    .duotone-wrapper {
+        background-color: --color-prose-100;
+    }
+    
+    form {
+        color: var(--color-prose-100);
+    }
+    
+    /* end login screen */
+    
+
+    .bg-background {
+        background-color: var(--color-notBlack);
+    }
+
+    .bg-white {
+        background-color: var(--color-dark2);
+    }
+
+    .bg-notWhite {
+        background-color: var(--color-dark3);
+    }
+    
+    .bg-tertiary-300 {
+        background-color: var(--color-dark3);
+    }
+
+    .border-notWhite {
+        border-color: var(--color-accent);
+    }
+    
+    .border-notBlack {
+        border-color: var(--color-prose-100);
+    }
+
+    .text-notWhite {
+        color: var(--color-notWhite);
+    }
+
+    .bg-notBlack {
+        background-color: var(--color-dark2);
+    }
+
+    .text-text {
+        color: var(--color-text);
+    }
+
+    [class*="text-foreground"] {
+        color: var(--color-accent);
+    }
+    
+    /* fucking buttons jesus fucking christ this is annoying i fucking hate tailwind*/
+    
+    button[class*="hover"]:hover {
+        background-color: var(--color-accent);
+        color: var(--color-notBlack);
+    }
+    
+    .group:hover .group-hover\:bg-foreground-600 {
+        background-color: var(--color-accent);
+        color: var( --color-accent-contrast-lite);
+    }
+    
+    .hover\:bg-cherry-600:active {
+        background-color: var(--color-dark0);
+        color: var(--color-accent);
+    }
+    
+    button[class*="bg-secondary"]:disabled  {
+        background-color: var(--color-strawberry-bg);
+    }
+
+    button[class*="bg-cherry"] {
+        background-color: var(--color-dark0);
+        color: var(--color-accent-contrast);
+    }
+    
+    button[class*="bg-secondary"]:active  {
+        background-color: var(--color-strawberry-bg);
+    }
+
+    button.disabled\:bg-cherry-200:disabled  {
+        background-color: var(--color-dark2);
+        color: var(--color-accent-contrast-dark);
+    }
+    
+    .disabled\:border-cherry-200:disabled {
+        border-color: var(--color-accent-contrast-dark);
+    }
+    
+    .disabled\:text-cherry-200:disabled {
+        color: var(--color-accent-contrast-dark);
+    
+    }
+    
+    input[type="checkbox"]:disabled {
+        background-color: var(--color-dark2);
+        color: var(--color-accent-contrast-dark);
+    }
+
+    button[class*="bg-foreground"]:active {
+        background-color: var(--color-cherry-bg);
+    }
+    
+    .hover\:bg-foreground-700:hover {
+        background-color: var(--color-accent);
+        color: var(--color-dark3);
+    }
+    
+    .hover\:border-cherry-600:hover {
+        border-color: var(--color-accent);
+    }
+
+    .bg-foreground[aria-selected="true"] {
+        background-color: var(--color-notBlack);
+    }
+
+    .bg-foreground[aria-selected="true"]:hover {
+        background-color: var(--color-notBlack);
+    }
+
+    [class*="bg-foreground"]:disabled {
+        background-color: var(--color-accent);
+    }
+    
+    .group:hover .group-hover\:bg-cherry-600 { /* account switcher */
+        background-color: var(--color-accent);
+        color: var(--color-dark2);
+    }
+    
+    .group:hover .group-hover\:bg-cherry-600 svg {
+        background-color: var(--color-accent);
+        color: var(--color-dark2);
+    }
+    
+    .hover\:text-text:hover { /* edit profile 'buttons' */
+        color: var(--color-prose-100);
+    }
+    
+    .hover\:bg-accent:hover {
+        background-color: var(--color-accent);
+    }
+    
+    .focus\:outline-cherry:focus {
+        outline-color: var(--color-accent);
+    }
+    
+    .focus\:border-notWhite:focus {
+        border-color: var(--color-accent);
+    }
+    
+    .active\:bg-cherry-600:active {
+        background-color: var(--color-dark3);
+        border-color: var(--color-accent);
+    }
+
+    /* end of fucking buttons */
+    
+    [class*="bg-foreground"] {
+        background-color: var(--color-cherry-bg);
+    }
+
+    .bg-foreground-800 {
+        background-color: var(--color-dark3);
+    }
+
+    .hover\:bg-foreground-600:hover {
+        background-color: var(--color-prose-300);
+    }
+
+    [class*=divide-foreground] > :not([hidden]) ~ :not([hidden]) { /* why ... ...*/
+        border-color: var(--color-dark2);
+    }
+    
+    [class*=divide-cherry] > :not([hidden]) ~ :not([hidden]) { /* why ... ...*/
+        border-color: var(--color-accent);
+    }
+    
+
+    [class*="bg-secondary"] {
+        background-color: var(--color-strawberry-bg);
+    }
+
+    [class*="bg-cherry"] {
+        background-color: var(--color-cherry-bg);
+    }
+
+    .fill-cherry.text-notWhite { /* 'new posts!'' */
+        fill:  var(--color-accent);
+        color: var(--color-notBlack);
+    }
+
+    .hover\:bg-cherry:hover {
+        background-color: var(--color-accent);
+        border-color:transparent;
+    }
+
+    [class*="border-cherry"] {
+        border-color: var(--color-accent);
+    }
+    
+    [class*="border-mango"] {
+        border-color: var(--color-accent);
+    }
+    
+    [class*="border-strawberry"] {
+        border-color: var(--color-accent);
+    }
+
+    .hover\:bg-cherry-100:hover {
+        background-color: var(--color-accent);
+        color: var(--color-dark2);
+    }
+
+    [class*="text-mango"] {
+        color: var(--color-accent);
+    }
+    
+    [class*="text-cherry"] {
+        color: var(--color-accent);
+    }
+    
+    [class*="text-strawberry"] {
+        color: var(--color-accent);
+    }
+
+    [class*="bg-longan"] {
+        background-color: var(--color-longan-bg);
+    }
+
+    [class*="text-longan"] {
+        color: var(--color-longan);
+    }
+
+    [class*="border-longan"] {
+        border-color: var(--color-prose-300);
+    }
+
+    [class*="bg-mango"] {
+        background-color: var(--color-mango-bg);
+    }
+
+    [class*="bg-strawberry"] {
+        background-color: var(--color-strawberry-bg);
+    }
+
+    [class*="border-gray"] {
+        border-color: var(--color-dark1);
+    }
+
+    nav [href*="compose"] {
+        color: var(--color-notBlack);
+        background: var(--color-accent);
+    }
+    
+    nav [href*="compose"]:hover {
+        color: var(--color-accent);
+        background: var(--color-notBlack);
+    }
+
+    .fill-composeButton {
+        fill: var(--color-accent);
+        color: var(--color-notBlack);
+    }
+
+    /* Post Composer */
+
+    .caret-gray-700 {
+        caret-color: var(--color-prose-100);
+    }
+
+    textarea::placeholder {
+        color: var(--color-accent);
+    }
+    
+        [type="text"]::placeholder, [type="email"]::placeholder, [type="url"]::placeholder, [type="password"]::placeholder, [type="number"]::placeholder, [type="date"]::placeholder, [type="datetime-local"]::placeholder, [type="month"]::placeholder, [type="search"]::placeholder, [type="tel"]::placeholder, [type="time"]::placeholder, [type="week"]::placeholder, [multiple]::placeholder, textarea::placeholder, select::placeholder {
+        color: var(--color-accent);
+    }
+    
+    [class*="placeholder"]::placeholder { /* Specifically suck on my ASs...*/
+        color: var(--color-accent);
+    }
+
+
+        [type="text"], [type="email"], [type="url"], [type="password"], [type="number"], [type="date"], [type="datetime-local"], [type="month"], [type="search"], [type="tel"], [type="time"], [type="week"], [multiple], textarea, select {
+        background-color: var(--color-dark1);
+        color: var(--color-prose-100);
+        border-color: var(--color-accent);
+    }
+
+        [type="text"]:focus, [type="email"]:focus, [type="url"]:focus, [type="password"]:focus, [type="number"]:focus, [type="date"]:focus, [type="datetime-local"]:focus, [type="month"]:focus, [type="search"]:focus, [type="tel"]:focus, [type="time"]:focus, [type="week"]:focus, [multiple]:focus, textarea:focus, select:focus {
+        border-color: var(--color-prose-100);
+    }
+    
+
+    /* post now v button */
+    .border-r-composeButton-400, .bg-composeButton {
+        border-right-color: var(--color-dark2);
+        background: var(--color-dark1)
+    }
+    .hover\:bg-composeButton-600:hover {
+        background-color: var(--color-accent);
+        color: var(--color-notBlack);
+    }
+
+    .text-gray-300,
+    .text-gray-400,
+    .text-gray-500{
+        color: var(--color-prose-200)
+    }
+
+
+    .text-gray-600,
+    .text-gray-700,
+    .text-gray-800,
+    .text-gray-900,
+    .text-gray-1000{
+        color: var(--color-prose-300)
+    }
+
+
+    .dark\:text-notBlack{
+        color: var(--color-prose-100);
+    }
+
+    .text-notBlack {
+        color: var(--color-prose-100);
+    }
+
+    .text-black {
+        color: var(--color-prose-100);
+    }
+
+    .prose {
+        color: var(--color-prose-100);
+    }
+
+    .prose {
+        --tw-prose-body: var(--color-prose-300);
+        --tw-prose-headings: var(--color-prose-100);
+        --tw-prose-lead: var(--color-prose-200);
+        --tw-prose-links: var(--color-prose-100);
+        --tw-prose-bold: var(--color-prose-100);
+        --tw-prose-counters: var(--color-prose-200);
+        --tw-prose-bullets: var(--color-prose-200);
+        --tw-prose-hr: var(--color-prose-100);
+        --tw-prose-quotes: var(--color-prose-100);
+        --tw-prose-quote-borders: var(--color-prose-300);
+        --tw-prose-captions: var(--color-prose-200);
+        --tw-prose-code: var(--color-prose-100);
+        --tw-prose-pre-code: var(--color-prose-100);
+        --tw-prose-pre-bg: var(--color-dark1);
+        --tw-prose-th-borders: var(--color-prose-100);
+        --tw-prose-td-borders: var(--color-prose-100);
+
+        font-size: 1rem;
+        line-height: 1.35;
+    }
+    
+    /* #hashtags */
+    [data-view="post-preview"] [data-post-body="true"] ~ div a {
+        color: var(--color-notWhite);
+    }
+
+
+    input[type="checkbox"] {
+        background-color: var(--color-dark1);
+        color: var(--color-accent);
+    }
+
+    hr {
+        margin-left:0!important;
+        margin-right:0!important;
+        border-color: var(--color-prose-100);
+    }
+    
+    :not(svg):not(.mask).dark\:cohost-shadow-dark {
+        box-shadow: none;
+    }
+
+    article {
+        border: solid 0px transparent;
+    }
+
+    /* svg icons in sidebar, notifications, <3/rb/pic/cw/emoji icons etc */
+    .bg-sidebarBg svg,
+    section svg,
+    svg.text-notBlack,
+    article footer .text-foreground svg,
+    article footer a svg { 
+        color: var(--color-accent);
+    }
+
+    section svg svg {
+        color: var(--color-notBlack);
+    }
+    
+    .fill-secondary {
+        fill: var(--color-accent);
+    }
+    
+    .fill-foreground-500 {
+        fill: var(--color-accent);
+        color: var(--color-notBlack);
+    }
+    
+
+    /* Sidebars */
+    .text-sidebarAccent {
+        color: var(--color-accent);
+    }
+
+    .bg-sidebarBg {
+        background-color: var(--color-dark2); 
+        border: none;
+    }
+
+    .hover\:border-sidebarAccent:hover {
+        border-color: transparent;
+        background-color: var(--color-dark1);
+    }
+
+    /* sidebar notif counter */
+    svg.fill-sidebarAccent {
+        color: var(--color-notBlack);
+        fill: var(--color-accent);
+    }
+
+    /* notification list border */
+    .divide-gray-300 > :not([hidden]) ~ :not([hidden]), [class*="border-b-gray"] {
+        --tw-divide-opacity: 1;
+        border-color: var(--color-dark1);
+    }
+
+    .hover\:bg-gray-200:hover {
+        --tw-bg-opacity: 1;
+        background-color: var(--color-cherry-bg);
+    }
+    
+    .bg-gray-200 {
+        background-color: var(--color-cherry-bg);
+    }
+
+
+    .from-white { /* gradient on "read more" cuts */
+        --tw-gradient-from: var(--color-dark2);
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(255 255 255 / 0));
+    }
+    
+    .backdrop-blur { /* fullscreen bg, appears on Delete This Post dialogue */
+        /* one of the only instances where dropping --tw-bg-opacity actually affects anything */
+        background-color: var(--color-bg-faded);
+    }
+    
+    .-cohost-dedup-link {/* post deduplication script compatibility https://github.com/nex3/cohost-dedup */
+        background: linear-gradient(0deg, var(--color-bg-faded), var(--color-dark3));
+        color: var(--color-accent);
+    }
+
+}
