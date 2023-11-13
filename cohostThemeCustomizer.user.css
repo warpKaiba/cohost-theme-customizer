@@ -3,7 +3,7 @@
 @description  Customizable theme for cohost
 @namespace    cohost.org/kiophen
 @author       kiophen
-@version      3.0.1
+@version      3.0.2
 @license      MIT
 @preprocessor less
 @updateURL    https://github.com/warpKaiba/cohost-theme-customizer/raw/main/cohostThemeCustomizer.user.css
@@ -531,9 +531,6 @@
         --tw-prose-pre-bg: var(--color-dark1);
         --tw-prose-th-borders: var(--color-prose-100);
         --tw-prose-td-borders: var(--color-prose-100);
-
-        font-size: 1rem;
-        line-height: 1.35;
     }
     
     /* #hashtags */
