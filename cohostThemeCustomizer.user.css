@@ -3,7 +3,7 @@
 @description  Customizable theme for cohost
 @namespace    cohost.org/kiophen
 @author       kiophen
-@version      3.1.0
+@version      3.1.1
 @license      MIT
 @preprocessor less
 @updateURL    https://github.com/warpKaiba/cohost-theme-customizer/raw/main/cohostThemeCustomizer.user.css
@@ -43,49 +43,45 @@
 @var checkbox ch_nocrimes  'Force custom css chosts to conform to theme (might make some posts look weird)' 0
 
 ==/UserStyle== */
-
-
 @-moz-document domain("cohost.org") {
- 
 
-    
-    @themes_list: @ch_ct_custom, @ch_bg_custom, @ch_pr_custom, @ch_fg_custom, @ch_ac_custom, @ch_bimg,
-                    -0.4, #441122, #ddaa88, #ffbbdd, #ff8800, "",
-                    -0.7, #fffcfa, #86024a, #ff7a18, #e127a5, "",
-                    -0.1, #031504, #008102, #009d07, #43ee00, "",
-                     0.4, #173855, #f1e831, #f0ea9b, #ffffff, "",
-                   -0.38, #3f183f, #fbf2fa, #de6bd9, #cd15e9, "",
-                    -0.5, #143150, #c3e3ef, #01a4ee, #ffd22e, "",
-                    -0.7, #4f5655, #e0efc3, #b7b7b7, #92f400, "",
-                     0.7, #f2d446, #11201f, #2795b8, #bb67c8, "",
-                    -0.7, #71401a, #f5d7d7, #ffbe6f, #a0a0a0, "",
-                    -0.3, #2bc7d7, #fbffff, #f8fcff, #7f52be, "",
-                     0.3, #ffb9cd, #f44893, #ff6eb6, #0d8eb3, "",
-                    -0.2, #002624, #70cbb2, #3be9b3, #7b56e0, "",
-                    -0.4, #404040, #ffffff, #bcbcbc, #ffffff, "",
-                    -0.5, #fcfcfd, #000000, #292929, #4A90D9, "",
-                    -0.5, #525552, #FAFAF8, #d1d1d1, #317ee2, "",
-                    -0.5, #091d00, #37ff00, #1eff00, #00ff10, "https://i.imgur.com/4qDBPIQ.png",
-                    -0.4, #000010, #7e92ff, #4d4dd0, #e6e6fc, "https://i.imgur.com/8Of0YkR.png",
-                    -0.4, #2f3346, #d8daed, #b0b1e6, #ffd667, "https://i.imgur.com/oGGznRu.png",
-                    -0.4, #054b4e, #00d9b5, #00907d, #6f6cfb, "https://i.imgur.com/psTaRA6.png",
-                    -0.4, #020f39, #eef3ff, #8bc7ec, #62b26c, "https://i.imgur.com/WLYhvES.png",
-                     0.4, #0369bc, #a6daff, #04196a, #44d2f4, "https://i.imgur.com/qqTEJOF.png",
-                    -0.2, #013a3e, #f3f9f7, #a5f1df, #2fe6c4, "https://i.imgur.com/AgQ35ib.png";
-    
+    @themes_list: @ch_ct_custom,@ch_bg_custom,@ch_pr_custom,@ch_fg_custom,@ch_ac_custom,@ch_bimg,
+    -0.4,#441122,#ddaa88,#ffbbdd,#ff8800,"",
+    -0.7,#fffcfa,#86024a,#ff7a18,#e127a5,"",
+    -0.1,#031504,#008102,#009d07,#43ee00,"",
+     0.4,#173855,#f1e831,#f0ea9b,#ffffff,"",
+    -0.4,#3f183f,#fbf2fa,#de6bd9,#cd15e9,"",
+    -0.5,#143150,#c3e3ef,#01a4ee,#ffd22e,"",
+    -0.7,#4f5655,#e0efc3,#b7b7b7,#92f400,"",
+     0.7,#f2d446,#11201f,#2795b8,#bb67c8,"",
+    -0.7,#71401a,#f5d7d7,#ffbe6f,#a0a0a0,"",
+    -0.3,#2bc7d7,#fbffff,#f8fcff,#7f52be,"",
+     0.3,#ffb9cd,#f44893,#ff6eb6,#0d8eb3,"",
+    -0.2,#002624,#70cbb2,#3be9b3,#7b56e0,"",
+    -0.4,#404040,#ffffff,#bcbcbc,#ffffff,"",
+    -0.5,#fcfcfd,#000000,#292929,#4A90D9,"",
+    -0.5,#525552,#FAFAF8,#d1d1d1,#317ee2,"",
+    -0.5,#091d00,#37ff00,#1eff00,#00ff10,"https://i.imgur.com/4qDBPIQ.png",
+    -0.4,#000010,#7e92ff,#4d4dd0,#e6e6fc,"https://i.imgur.com/8Of0YkR.png",
+    -0.4,#2f3346,#d8daed,#b0b1e6,#ffd667,"https://i.imgur.com/oGGznRu.png",
+    -0.4,#054b4e,#00d9b5,#00907d,#6f6cfb,"https://i.imgur.com/psTaRA6.png",
+    -0.4,#020f39,#eef3ff,#8bc7ec,#62b26c,"https://i.imgur.com/WLYhvES.png",
+     0.4,#0369bc,#a6daff,#04196a,#44d2f4,"https://i.imgur.com/qqTEJOF.png",
+    -0.2,#013a3e,#f3f9f7,#a5f1df,#2fe6c4,"https://i.imgur.com/AgQ35ib.png";
+
     :root {
-        
+
         @ch_ct: extract(@themes_list, (@ch_theme*6) + 1);
         @ch_bg: extract(@themes_list, (@ch_theme*6) + 2);
         @ch_pr: extract(@themes_list, (@ch_theme*6) + 3);
         @ch_fg: extract(@themes_list, (@ch_theme*6) + 4);
         @ch_ac: extract(@themes_list, (@ch_theme*6) + 5);
-        @ch_bimg2:  extract(@themes_list, (@ch_theme*6) + 6);
-        
+        @ch_bimg2: extract(@themes_list, (@ch_theme*6) + 6);
+
         @ch_pr_h: hue(@ch_pr);
         @ch_pr_s: saturation(@ch_pr);
         @ch_pr_l: lightness(@ch_pr);
-        
+
         @ch_fg_h: hue(@ch_fg);
         @ch_fg_s: saturation(@ch_fg);
         @ch_fg_l: lightness(@ch_fg);
@@ -99,17 +95,17 @@
         @ch_bg_2: hsl(@ch_bg_h, @ch_bg_s, (@ch_bg_l+ ((@ch_ct)*10)));
         @ch_bg_3: hsl(@ch_bg_h, @ch_bg_s, (@ch_bg_l+ ((@ch_ct*2)*10)));
         @ch_bg_4: hsl(@ch_bg_h, @ch_bg_s, (@ch_bg_l+ ((@ch_ct*3)*10)));
-        
+
         --color-notWhite: @ch_fg;
 
         --color-prose-100: @ch_pr;
-        --color-prose-200: hsl(@ch_pr_h, @ch_pr_s, (@ch_pr_l+ ((@ch_ct*3)*10) ));
-        --color-prose-300: hsl(@ch_pr_h, @ch_pr_s, (@ch_pr_l+ ((@ch_ct*6)*10) ));
-        
+        --color-prose-200: hsl(@ch_pr_h, @ch_pr_s, (@ch_pr_l+ ((@ch_ct*3)*10)));
+        --color-prose-300: hsl(@ch_pr_h, @ch_pr_s, (@ch_pr_l+ ((@ch_ct*6)*10)));
+
         --color-prose-alt-100: @ch_fg;
-        --color-prose-alt-200: hsl(@ch_fg_h, @ch_fg_s - 20, (@ch_fg_l+ ((@ch_ct*3)*10) ));
-        --color-prose-alt-300: hsl(@ch_fg_h, @ch_fg_s - 40, (@ch_fg_l+ ((@ch_ct*6)*10) ));
-        
+        --color-prose-alt-200: hsl(@ch_fg_h, @ch_fg_s - 20, (@ch_fg_l+ ((@ch_ct*3)*10)));
+        --color-prose-alt-300: hsl(@ch_fg_h, @ch_fg_s - 40, (@ch_fg_l+ ((@ch_ct*6)*10)));
+
         --color-dark0: @ch_bg_0;
         --color-dark1: @ch_bg_1;
         --color-dark2: @ch_bg_2;
@@ -117,7 +113,7 @@
         --color-notBlack: @ch_bg_4;
 
         --color-accent: @ch_ac;
-        
+
         @color-accent-contrast: contrast(@ch_bg, @ch_ac, @ch_pr);
         --color-accent-contrast-dark: mix(@color-accent-contrast, @ch_bg_0, 50%);
         --color-accent-contrast-lite: contrast(@ch_ac, @ch_bg, @ch_pr);
@@ -133,7 +129,6 @@
         --color-longan-bg: var(--color-dark2);
 
         /* haphazard cohost97 compatibility for fun */
-
         --win9x-black: @ch_fg;
         --win9x-black-shadow: rgba(var(--win9x-black-raw), var(--shadowOpacity));
         --win9x-darkgray: @ch_bg_4;
@@ -152,16 +147,19 @@
         --win9x-tangerine-yellow: #FFCC00;
         --win9x-office-comment: @ch_bg_0;
         --cohost-purple: rgb(var(--color-foreground));
-        
-        & when (@ch_bi = 1) {
-        main, .container.flex-col {
-            background: url("@{ch_bimg2}");
-            background-attachment: fixed;
+
+        & when (@ch_bi =1) {
+            main,
+            .container.flex-col {
+                background: url("@{ch_bimg2}");
+                background-attachment: fixed;
+            }
         }
-    }
-    
-        & when (@ch_bi = 0) {
-            main, .container.flex-col, div.mt-16.flex-col {
+
+        & when (@ch_bi =0) {
+            main,
+            .container.flex-col,
+            div.mt-16.flex-col {
                 /*
                 .mixin(@ch_theme);
                 */
@@ -169,33 +167,34 @@
                 background-attachment: fixed;
             }
         }
-        
+    }
+
+    html {
+        scrollbar-color: var(--color-accent) var(--color-dark1);
     }
     
-    div[data-post-body] > div.prose * when (@ch_nocrimes = 1) {
-        color: unset !important; 
+    div[data-post-body] > div.prose * when (@ch_nocrimes =1) {
+        color: unset !important;
         background: unset !important;
         background-color: revert !important;
     }
-    
-    
+
+
     /* login screen */
     .duotone-wrapper::before {
         background-color: var(--color-dark1);
         mix-blend-mode: color;
     }
-    
+
     .duotone-wrapper {
         background-color: --color-prose-100;
     }
-    
+
     form {
         color: var(--color-prose-100);
     }
-    
-    /* end login screen */
-    
 
+    /* end login screen */
     .bg-background {
         background-color: var(--color-notBlack);
     }
@@ -204,43 +203,70 @@
         background-color: var(--color-dark2);
     }
 
-    .bg-notWhite, [data-theme="both"].co-themed-box .co-comment-box {
+    .bg-notWhite,
+    [data-theme="both"].co-themed-box .co-comment-box {
         background-color: var(--color-dark3);
     }
-    
+
     /* fixes for the darkmode update */
-    article.co-themed-box.co-post-box[data-theme], .co-themed-box.co-comment-box[data-theme] {
+    /* POSTS! */
+    article.co-themed-box.co-post-box[data-theme],
+    .co-themed-box.co-comment-box[data-theme] {
         border-color: var(--color-dark0);
-        background-color:var(--color-dark2);
-        
-        .co-info-box.co-18-plus{
+        background-color: var(--color-dark3);
+
+        .co-info-box.co-18-plus {
             border-color: var(--color-prose-300);
             color: var(--color-prose-300);
-            background-color: var(--color-dark1)
+            background-color: var(--color-dark3);
         }
-        
-        .co-info-box{
+
+        .co-info-box {
             border-color: var(--color-prose-alt-100);
             color: var(--color-prose-alt-100);
-            background-color: var(--color-dark1)
+            background-color: var(--color-dark1);
         }
-        
+
+        .co-embedded-ask {
+            border-color: var(--color-dark0);
+            background-color: var(--color-dark3);
+            color: var(--color-prose-alt-100);
+            .co-attribution {
+                color: var(--color-prose-alt-100);
+            }
+        }
+
         .co-tags {
-            color: var(--color-prose-300);
+            color: var(--color-prose-alt-200);
         }
-        > .co-thread-header, .co-post-header, .co-thread-footer, .co-embed {
-            background-color:var(--color-dark3);
+
+        > .co-thread-header,
+        .co-post-header,
+        .co-thread-footer,
+        .co-embed {
+            background-color: var(--color-dark2);
             color: var(--color-prose-100);
         }
+
         .co-hairline {
             border-color: var(--color-dark0);
         }
     }
-    
-    
-    
-    
-    
+
+    /* Notifications page */
+    .co-themed-box[data-theme].co-notification-group {
+        background-color: var(--color-dark2);
+        color: var(--color-prose-100);
+        border-color: var(--color-dark0);
+        header {
+            background-color: var(--color-dark0);
+        }
+
+        .co-notification-card:not([hidden]) {
+            border-color: var(--color-dark0);
+        }
+    }
+
     .bg-tertiary-300 {
         background-color: var(--color-dark3);
     }
@@ -248,7 +274,7 @@
     .border-notWhite {
         border-color: var(--color-accent);
     }
-    
+
     .border-notBlack {
         border-color: var(--color-prose-100);
     }
@@ -268,25 +294,24 @@
     [class*="text-foreground"] {
         color: var(--color-accent);
     }
-    
+
     /* fucking buttons jesus fucking christ this is annoying i fucking hate tailwind */
-    
     button[class*="hover"]:hover {
         background-color: var(--color-accent);
         color: var(--color-notBlack);
     }
-    
+
     .group:hover .group-hover\:bg-foreground-600 {
         background-color: var(--color-accent);
         color: var( --color-accent-contrast-lite);
     }
-    
+
     .hover\:bg-cherry-600:active {
         background-color: var(--color-dark0);
         color: var(--color-accent);
     }
-    
-    button[class*="bg-secondary"]:disabled  {
+
+    button[class*="bg-secondary"]:disabled {
         background-color: var(--color-strawberry-bg);
     }
 
@@ -294,25 +319,24 @@
         background-color: var(--color-dark0);
         color: var(--color-accent-contrast);
     }
-    
-    button[class*="bg-secondary"]:active  {
+
+    button[class*="bg-secondary"]:active {
         background-color: var(--color-strawberry-bg);
     }
 
-    button.disabled\:bg-cherry-200:disabled  {
+    button.disabled\:bg-cherry-200:disabled {
         background-color: var(--color-dark2);
         color: var(--color-accent-contrast-dark);
     }
-    
+
     .disabled\:border-cherry-200:disabled {
         border-color: var(--color-accent-contrast-dark);
     }
-    
+
     .disabled\:text-cherry-200:disabled {
         color: var(--color-accent-contrast-dark);
-    
     }
-    
+
     input[type="checkbox"]:disabled {
         background-color: var(--color-dark2);
         color: var(--color-accent-contrast-dark);
@@ -321,12 +345,12 @@
     button[class*="bg-foreground"]:active {
         background-color: var(--color-cherry-bg);
     }
-    
+
     .hover\:bg-foreground-700:hover {
         background-color: var(--color-accent);
         color: var(--color-dark3);
     }
-    
+
     .hover\:border-cherry-600:hover {
         border-color: var(--color-accent);
     }
@@ -342,71 +366,86 @@
     [class*="bg-foreground"]:disabled {
         background-color: var(--color-accent);
     }
-    
-    .group:hover .group-hover\:bg-cherry-600 { /* account switcher */
+
+    .group:hover .group-hover\:bg-cherry-600 {
+        /* account switcher */
         background-color: var(--color-accent);
         color: var(--color-dark2);
     }
-    
+
     .group:hover .group-hover\:bg-cherry-600 svg {
         background-color: var(--color-accent);
         color: var(--color-dark2);
     }
-    
-    .hover\:text-text:hover { /* edit profile 'buttons' */
+
+    .hover\:text-text:hover {
+        /* edit profile 'buttons' */
         color: var(--color-prose-100);
     }
-    
+
     .hover\:bg-accent:hover {
         background-color: var(--color-accent);
     }
-    
+
     .focus\:outline-cherry:focus {
         outline-color: var(--color-accent);
     }
-    
+
     .focus\:border-notWhite:focus {
         border-color: var(--color-accent);
     }
-    
+
     .active\:bg-cherry-600:active {
         background-color: var(--color-dark3);
         border-color: var(--color-accent);
     }
 
-    /* finally some decent(?) fucking selectors */
-    
+    /* THEY'RE FINALLY USING REAL CLASSES */
     [data-theme].co-themed-box {
-        button.co-outline-button, button.co-link-button {
-            background:none;
-            border-color:var(--color-prose-alt-100);
+        button.co-outline-button,
+        button.co-link-button {
+            background: var(--color-dark3);
+            border-color: var(--color-prose-alt-100);
             color: var(--color-prose-alt-100);
             &:hover {
-                border-color:var(--color-accent);
+                border-color: var(--color-accent);
                 color: var(--color-accent);
             }
             &:disabled {
-                border-color:var(--color-prose-alt-100);
+                border-color: var(--color-prose-alt-100);
                 color: var(--color-prose-alt-100);
                 opacity: 50%;
             }
         }
-    }
-    
-    [data-theme].co-themed-box button.co-filled-button {
-        background-color:var(--color-prose-alt-100);
-        color: var(--color-dark2);
-        &:hover {
-            background-color:var(--color-accent);
+
+        button.co-filled-button, .co-filled-button {
+            background-color: var(--color-prose-alt-100);
+            color: var(--color-dark2);
+            &:hover {
+                background-color: var(--color-accent);
+            }
+            &:disabled {
+                background-color: var(--color-prose-alt-100);
+                opacity: 50%;
+            }
         }
-        &:disabled {
-            background-color:var(--color-prose-alt-100);
-            opacity: 50%;
+        
+        input[type="checkbox"] {
+            border-color: var(--color-accent);
+            background-color:transparent;
+        }
+        
+        .co-link-button {
+            color: var(--color-accent);
+        }
+        
+        .co-from-body {
+            /* "read more" gradient */
+            --tw-gradient-from: var(--color-dark3) var(--tw-gradient-from-position);
         }
     }
-    
+
     /* end of fucking buttons */
-    
     [class*="bg-foreground"] {
         background-color: var(--color-cherry-bg);
     }
@@ -419,14 +458,16 @@
         background-color: var(--color-prose-300);
     }
 
-    [class*=divide-foreground] > :not([hidden]) ~ :not([hidden]) { /* why ... ...*/
+    [class*=divide-foreground] > :not([hidden]) ~ :not([hidden]) {
+        /* why ... ...*/
         border-color: var(--color-dark2);
     }
-    
-    [class*=divide-cherry] > :not([hidden]) ~ :not([hidden]) { /* why ... ...*/
+
+    [class*=divide-cherry] > :not([hidden]) ~ :not([hidden]) {
+        /* why ... ...*/
         border-color: var(--color-accent);
     }
-    
+
 
     [class*="bg-secondary"] {
         background-color: var(--color-strawberry-bg);
@@ -436,24 +477,25 @@
         background-color: var(--color-cherry-bg);
     }
 
-    .fill-cherry.text-notWhite { /* 'new posts!'' */
-        fill:  var(--color-accent);
+    .fill-cherry.text-notWhite {
+        /* 'new posts!'' */
+        fill: var(--color-accent);
         color: var(--color-notBlack);
     }
 
     .hover\:bg-cherry:hover {
         background-color: var(--color-accent);
-        border-color:transparent;
+        border-color: transparent;
     }
 
     [class*="border-cherry"] {
         border-color: var(--color-accent);
     }
-    
+
     [class*="border-mango"] {
         border-color: var(--color-accent);
     }
-    
+
     [class*="border-strawberry"] {
         border-color: var(--color-accent);
     }
@@ -466,11 +508,11 @@
     [class*="text-mango"] {
         color: var(--color-accent);
     }
-    
+
     [class*="text-cherry"] {
         color: var(--color-accent);
     }
-    
+
     [class*="text-strawberry"] {
         color: var(--color-accent);
     }
@@ -503,7 +545,7 @@
         color: var(--color-notBlack);
         background: var(--color-accent);
     }
-    
+
     nav [href*="compose"]:hover {
         color: var(--color-accent);
         background: var(--color-notBlack);
@@ -515,47 +557,107 @@
     }
 
     /* Post Composer */
-
     .caret-gray-700 {
         caret-color: var(--color-prose-100);
     }
 
-    [data-theme].co-themed-box.co-comment-box .co-composer-text-box {
-        border-color:var(--color-prose-300);
-        color:var(--color-prose-100);
-        background-color: var(--color-dark3);
-        &::spelling-error {
-            color:blue;
+    [data-theme].co-themed-box.co-comment-box,
+    [data-theme].co-themed-box.co-post-box {
+        .co-composer-textbox,
+        .co-editable-body {
+            border-color: var(--color-prose-300);
+            color: var(--color-prose-100);
+            background-color: transparent;
+            caret-color: var(--color-prose-100);
+
+            &::placeholder {
+                color: var(--color-accent);
+            }
+            &::spelling-error {
+                color: var(--color-accent);
+            }
         }
-        
+
+        .co-tab-bar {
+            background-color: var(--color-dark0);
+            color: var(--color-accent);
+            &.co-active {
+                background-color: var(--color-accent);
+                color: var(--color-dark0);
+            }
+        }
     }
-    
+
     textarea::placeholder {
         color: var(--color-accent);
     }
-    
-        [type="text"]::placeholder, [type="email"]::placeholder, [type="url"]::placeholder, [type="password"]::placeholder, [type="number"]::placeholder, [type="date"]::placeholder, [type="datetime-local"]::placeholder, [type="month"]::placeholder, [type="search"]::placeholder, [type="tel"]::placeholder, [type="time"]::placeholder, [type="week"]::placeholder, [multiple]::placeholder, textarea::placeholder, select::placeholder {
+
+    [type="text"]::placeholder,
+    [type="email"]::placeholder,
+    [type="url"]::placeholder,
+    [type="password"]::placeholder,
+    [type="number"]::placeholder,
+    [type="date"]::placeholder,
+    [type="datetime-local"]::placeholder,
+    [type="month"]::placeholder,
+    [type="search"]::placeholder,
+    [type="tel"]::placeholder,
+    [type="time"]::placeholder,
+    [type="week"]::placeholder,
+    [multiple]::placeholder,
+    textarea::placeholder,
+    select::placeholder {
         color: var(--color-accent);
     }
-    
-    [class*="placeholder"]::placeholder { /* Specifically suck on my ASs...*/
+
+    [class*="placeholder"]::placeholder {
+        /* Specifically suck on my ASs...*/
         color: var(--color-accent);
     }
 
 
-        [type="text"], [type="email"], [type="url"], [type="password"], [type="number"], [type="date"], [type="datetime-local"], [type="month"], [type="search"], [type="tel"], [type="time"], [type="week"], [multiple], textarea, select {
+    [type="text"],
+    [type="email"],
+    [type="url"],
+    [type="password"],
+    [type="number"],
+    [type="date"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="search"],
+    [type="tel"],
+    [type="time"],
+    [type="week"],
+    [multiple],
+    textarea,
+    select {
         background-color: var(--color-dark1);
         color: var(--color-prose-100);
         border-color: var(--color-accent);
     }
 
-        [type="text"]:focus, [type="email"]:focus, [type="url"]:focus, [type="password"]:focus, [type="number"]:focus, [type="date"]:focus, [type="datetime-local"]:focus, [type="month"]:focus, [type="search"]:focus, [type="tel"]:focus, [type="time"]:focus, [type="week"]:focus, [multiple]:focus, textarea:focus, select:focus {
+    [type="text"]:focus,
+    [type="email"]:focus,
+    [type="url"]:focus,
+    [type="password"]:focus,
+    [type="number"]:focus,
+    [type="date"]:focus,
+    [type="datetime-local"]:focus,
+    [type="month"]:focus,
+    [type="search"]:focus,
+    [type="tel"]:focus,
+    [type="time"]:focus,
+    [type="week"]:focus,
+    [multiple]:focus,
+    textarea:focus,
+    select:focus {
         border-color: var(--color-prose-100);
     }
-    
+
 
     /* post now v button */
-    .border-r-composeButton-400, .bg-composeButton {
+    .border-r-composeButton-400,
+    .bg-composeButton {
         border-right-color: var(--color-dark2);
         background: var(--color-dark1)
     }
@@ -566,7 +668,7 @@
 
     .text-gray-300,
     .text-gray-400,
-    .text-gray-500{
+    .text-gray-500 {
         color: var(--color-prose-200)
     }
 
@@ -575,12 +677,12 @@
     .text-gray-700,
     .text-gray-800,
     .text-gray-900,
-    .text-gray-1000{
+    .text-gray-1000 {
         color: var(--color-prose-300)
     }
 
 
-    .dark\:text-notBlack{
+    .dark\:text-notBlack {
         color: var(--color-prose-100);
     }
 
@@ -592,7 +694,7 @@
         color: var(--color-prose-100);
     }
 
-    [data-theme].co-themed-box .co-prose {
+    [data-theme].co-themed-box .co-prose, .prose {
         color: var(--color-prose-100);
         --tw-prose-body: var(--color-prose-300);
         --tw-prose-headings: var(--color-prose-100);
@@ -611,16 +713,10 @@
         --tw-prose-th-borders: var(--color-prose-100);
         --tw-prose-td-borders: var(--color-prose-100);
     }
-    
+
     .co-project-handle {
         color: var(--color-prose-100)!important;
     }
-
-    /* #hashtags */
-    [data-view="post-preview"] [data-post-body="true"] ~ div a {
-        color: var(--color-notWhite);
-    }
-
 
     input[type="checkbox"] {
         background-color: var(--color-dark1);
@@ -628,11 +724,11 @@
     }
 
     hr {
-        margin-left:0!important;
-        margin-right:0!important;
+        margin-left: 0!important;
+        margin-right: 0!important;
         border-color: var(--color-prose-100);
     }
-    
+
     :not(svg):not(.mask).dark\:cohost-shadow-dark {
         box-shadow: none;
     }
@@ -646,23 +742,23 @@
     section svg,
     svg.text-notBlack,
     article footer .text-foreground svg,
-    article footer a svg { 
+    article footer a svg {
         color: var(--color-accent);
     }
 
     section svg svg {
         color: var(--color-notBlack);
     }
-    
+
     .fill-secondary {
         fill: var(--color-accent);
     }
-    
+
     .fill-foreground-500 {
         fill: var(--color-accent);
         color: var(--color-notBlack);
     }
-    
+
 
     /* Sidebars */
     .text-sidebarAccent {
@@ -670,8 +766,8 @@
     }
 
     .bg-sidebarBg {
-        background-color: var(--color-dark2); 
-        border-color:var(--color-dark0);
+        background-color: var(--color-dark2);
+        border-color: var(--color-dark0);
     }
 
     .hover\:border-sidebarAccent:hover {
@@ -686,7 +782,8 @@
     }
 
     /* notification list border */
-    .divide-gray-300 > :not([hidden]) ~ :not([hidden]), [class*="border-b-gray"] {
+    .divide-gray-300 > :not([hidden]) ~ :not([hidden]),
+    [class*="border-b-gray"] {
         --tw-divide-opacity: 1;
         border-color: var(--color-dark1);
     }
@@ -695,25 +792,27 @@
         --tw-bg-opacity: 1;
         background-color: var(--color-cherry-bg);
     }
-    
+
     .bg-gray-200 {
         background-color: var(--color-cherry-bg);
     }
 
 
-    .from-white { /* gradient on "read more" cuts */
+    .from-white {
+        /* gradient on "read more" cuts */
         --tw-gradient-from: var(--color-dark2);
         --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(255 255 255 / 0));
     }
-    
-    .backdrop-blur { /* fullscreen bg, appears on Delete This Post dialogue */
+
+    .backdrop-blur {
+        /* fullscreen bg, appears on Delete This Post dialogue */
         /* one of the only instances where dropping --tw-bg-opacity actually affects anything */
         background-color: var(--color-bg-faded);
     }
-    
-    .-cohost-dedup-link {/* post deduplication script compatibility https://github.com/nex3/cohost-dedup */
+
+    .-cohost-dedup-link {
+        /* post deduplication script compatibility https://github.com/nex3/cohost-dedup */
         background: linear-gradient(0deg, var(--color-bg-faded), var(--color-dark3));
         color: var(--color-accent);
     }
-
 }
