@@ -3,7 +3,7 @@
 @description  Customizable theme for cohost
 @namespace    cohost.org/kiophen
 @author       kiophen
-@version      3.0.2
+@version      3.1.0
 @license      MIT
 @preprocessor less
 @updateURL    https://github.com/warpKaiba/cohost-theme-customizer/raw/main/cohostThemeCustomizer.user.css
@@ -33,14 +33,14 @@
 }
 
 @var range    ch_ct_custom        'Custom Dark-Light contrast'   [-0.4, -1, 1, 0.01]
-@var color    ch_bg_custom        'Custom background color'      #292929
+@var color    ch_bg_custom        'Custom base color'      #292929
 @var color    ch_pr_custom        'Custom text color'            #ffff8f
-@var color    ch_fg_custom        'Custom Secondary-text color'  #70ffdd
+@var color    ch_fg_custom        'Custom secondary-text color'  #70ffdd
 @var color    ch_ac_custom        'Custom accent color'          #fb86d0
 
 @var checkbox ch_bi        'Use custom background image'  0
 @var text     ch_bimg      'Custom background url - has to be surrounded by quotes'        '""'
-@var checkbox ch_nocrimes  'Force custom css chosts to conform to theme' 0
+@var checkbox ch_nocrimes  'Force custom css chosts to conform to theme (might make some posts look weird)' 0
 
 ==/UserStyle== */
 
@@ -85,6 +85,10 @@
         @ch_pr_h: hue(@ch_pr);
         @ch_pr_s: saturation(@ch_pr);
         @ch_pr_l: lightness(@ch_pr);
+        
+        @ch_fg_h: hue(@ch_fg);
+        @ch_fg_s: saturation(@ch_fg);
+        @ch_fg_l: lightness(@ch_fg);
 
         @ch_bg_h: hue(@ch_bg);
         @ch_bg_s: saturation(@ch_bg);
@@ -101,6 +105,10 @@
         --color-prose-100: @ch_pr;
         --color-prose-200: hsl(@ch_pr_h, @ch_pr_s, (@ch_pr_l+ ((@ch_ct*3)*10) ));
         --color-prose-300: hsl(@ch_pr_h, @ch_pr_s, (@ch_pr_l+ ((@ch_ct*6)*10) ));
+        
+        --color-prose-alt-100: @ch_fg;
+        --color-prose-alt-200: hsl(@ch_fg_h, @ch_fg_s - 20, (@ch_fg_l+ ((@ch_ct*3)*10) ));
+        --color-prose-alt-300: hsl(@ch_fg_h, @ch_fg_s - 40, (@ch_fg_l+ ((@ch_ct*6)*10) ));
         
         --color-dark0: @ch_bg_0;
         --color-dark1: @ch_bg_1;
@@ -196,9 +204,42 @@
         background-color: var(--color-dark2);
     }
 
-    .bg-notWhite {
+    .bg-notWhite, [data-theme="both"].co-themed-box .co-comment-box {
         background-color: var(--color-dark3);
     }
+    
+    /* fixes for the darkmode update */
+    article.co-themed-box.co-post-box[data-theme], .co-themed-box.co-comment-box[data-theme] {
+        border-color: var(--color-dark0);
+        background-color:var(--color-dark2);
+        
+        .co-info-box.co-18-plus{
+            border-color: var(--color-prose-300);
+            color: var(--color-prose-300);
+            background-color: var(--color-dark1)
+        }
+        
+        .co-info-box{
+            border-color: var(--color-prose-alt-100);
+            color: var(--color-prose-alt-100);
+            background-color: var(--color-dark1)
+        }
+        
+        .co-tags {
+            color: var(--color-prose-300);
+        }
+        > .co-thread-header, .co-post-header, .co-thread-footer, .co-embed {
+            background-color:var(--color-dark3);
+            color: var(--color-prose-100);
+        }
+        .co-hairline {
+            border-color: var(--color-dark0);
+        }
+    }
+    
+    
+    
+    
     
     .bg-tertiary-300 {
         background-color: var(--color-dark3);
@@ -228,7 +269,7 @@
         color: var(--color-accent);
     }
     
-    /* fucking buttons jesus fucking christ this is annoying i fucking hate tailwind*/
+    /* fucking buttons jesus fucking christ this is annoying i fucking hate tailwind */
     
     button[class*="hover"]:hover {
         background-color: var(--color-accent);
@@ -333,6 +374,37 @@
         border-color: var(--color-accent);
     }
 
+    /* finally some decent(?) fucking selectors */
+    
+    [data-theme].co-themed-box {
+        button.co-outline-button, button.co-link-button {
+            background:none;
+            border-color:var(--color-prose-alt-100);
+            color: var(--color-prose-alt-100);
+            &:hover {
+                border-color:var(--color-accent);
+                color: var(--color-accent);
+            }
+            &:disabled {
+                border-color:var(--color-prose-alt-100);
+                color: var(--color-prose-alt-100);
+                opacity: 50%;
+            }
+        }
+    }
+    
+    [data-theme].co-themed-box button.co-filled-button {
+        background-color:var(--color-prose-alt-100);
+        color: var(--color-dark2);
+        &:hover {
+            background-color:var(--color-accent);
+        }
+        &:disabled {
+            background-color:var(--color-prose-alt-100);
+            opacity: 50%;
+        }
+    }
+    
     /* end of fucking buttons */
     
     [class*="bg-foreground"] {
@@ -448,6 +520,16 @@
         caret-color: var(--color-prose-100);
     }
 
+    [data-theme].co-themed-box.co-comment-box .co-composer-text-box {
+        border-color:var(--color-prose-300);
+        color:var(--color-prose-100);
+        background-color: var(--color-dark3);
+        &::spelling-error {
+            color:blue;
+        }
+        
+    }
+    
     textarea::placeholder {
         color: var(--color-accent);
     }
@@ -510,11 +592,8 @@
         color: var(--color-prose-100);
     }
 
-    .prose {
+    [data-theme].co-themed-box .co-prose {
         color: var(--color-prose-100);
-    }
-
-    .prose {
         --tw-prose-body: var(--color-prose-300);
         --tw-prose-headings: var(--color-prose-100);
         --tw-prose-lead: var(--color-prose-200);
@@ -533,6 +612,10 @@
         --tw-prose-td-borders: var(--color-prose-100);
     }
     
+    .co-project-handle {
+        color: var(--color-prose-100)!important;
+    }
+
     /* #hashtags */
     [data-view="post-preview"] [data-post-body="true"] ~ div a {
         color: var(--color-notWhite);
@@ -588,7 +671,7 @@
 
     .bg-sidebarBg {
         background-color: var(--color-dark2); 
-        border: none;
+        border-color:var(--color-dark0);
     }
 
     .hover\:border-sidebarAccent:hover {
