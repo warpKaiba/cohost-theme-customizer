@@ -3,7 +3,7 @@
 @description  Customizable theme for cohost
 @namespace    cohost.org/kiophen
 @author       kiophen
-@version      3.1.3
+@version      3.1.4
 @license      MIT
 @preprocessor less
 @updateURL    https://github.com/warpKaiba/cohost-theme-customizer/raw/main/cohostThemeCustomizer.user.css
@@ -41,6 +41,9 @@
 @var checkbox ch_bi        'Use custom background image'  0
 @var text     ch_bimg      'Custom background url - has to be surrounded by quotes'        '""'
 @var checkbox ch_nocrimes  'Force custom css chosts to conform to theme (might make some posts look weird)' 0
+
+@var checkbox ch_noshadows 'Toggle element shadows'    0
+@var checkbox ch_noborders 'Toggle element borders'    1
 
 ==/UserStyle== */
 @-moz-document domain("cohost.org") {
@@ -95,7 +98,9 @@
         @ch_bg_2: hsl(@ch_bg_h, @ch_bg_s, (@ch_bg_l+ ((@ch_ct)*10)));
         @ch_bg_3: hsl(@ch_bg_h, @ch_bg_s, (@ch_bg_l+ ((@ch_ct*2)*10)));
         @ch_bg_4: hsl(@ch_bg_h, @ch_bg_s, (@ch_bg_l+ ((@ch_ct*3)*10)));
-
+        
+        --ch-noborders: unit(@ch_noborders, px);
+        
         --color-notWhite: @ch_fg;
 
         --color-prose-100: @ch_pr;
@@ -106,11 +111,12 @@
         --color-prose-alt-200: hsl(@ch_fg_h, @ch_fg_s - 20, (@ch_fg_l+ ((@ch_ct*3)*10)));
         --color-prose-alt-300: hsl(@ch_fg_h, @ch_fg_s - 40, (@ch_fg_l+ ((@ch_ct*6)*10)));
 
-        --color-dark0: @ch_bg_0;
-        --color-dark1: @ch_bg_1;
-        --color-dark2: @ch_bg_2;
-        --color-dark3: @ch_bg_3;
+        --color-base0: @ch_bg_0;
+        --color-base1: @ch_bg_1;
+        --color-base2: @ch_bg_2;
+        --color-base3: @ch_bg_3;
         --color-notBlack: @ch_bg_4;
+        --color-darkerThanNotBlack: darken(@ch_bg_4, 12%); 
 
         --color-accent: @ch_ac;
 
@@ -120,13 +126,13 @@
         --color-bg-faded: fadeout(@ch_bg_1, 60%);
 
         --color-cherry: var(--color-accent);
-        --color-cherry-bg: var(--color-dark1);
+        --color-cherry-bg: var(--color-base1);
         --color-strawberry: var(--color-notWhite);
-        --color-strawberry-bg: var(--color-dark1);
+        --color-strawberry-bg: var(--color-base1);
         --color-mango: var(--color-notWhite);
-        --color-mango-bg: var(--color-dark1);
+        --color-mango-bg: var(--color-base1);
         --color-longan: var(--color-notWhite);
-        --color-longan-bg: var(--color-dark2);
+        --color-longan-bg: var(--color-base2);
 
         /* haphazard cohost97 compatibility for fun */
         --win9x-black: @ch_fg;
@@ -170,7 +176,17 @@
     }
 
     html {
-        scrollbar-color: var(--color-accent) var(--color-dark1);
+        scrollbar-color: var(--color-accent) var(--color-base1);
+    }
+
+    /* element shadows */
+    :not(svg):not(.mask).co-post-box:not(.co-post-composer), :not(svg):not(.mask).cohost-shadow-light, :not(svg):not(.mask).dark\:cohost-shadow-dark {
+        
+        & when (@ch_noshadows = 0) {
+            box-shadow: 3px 3px 5px 0 var(--color-darkerThanNotBlack);
+        }
+        
+        & when (@ch_noshadows = 1) {box-shadow: none;}
     }
     
     div[data-post-body] > div.prose * when (@ch_nocrimes =1) {
@@ -182,7 +198,7 @@
 
     /* login screen */
     .duotone-wrapper::before {
-        background-color: var(--color-dark1);
+        background-color: var(--color-base1);
         mix-blend-mode: color;
     }
 
@@ -200,36 +216,41 @@
     }
 
     .bg-white {
-        background-color: var(--color-dark2);
+        background-color: var(--color-base2);
     }
 
     .bg-notWhite,
     [data-theme="both"].co-themed-box .co-comment-box {
-        background-color: var(--color-dark3);
+        background-color: var(--color-base3);
     }
 
     /* fixes for the darkmode update */
-    /* POSTS! */
+    /* POSTS!!!11!! CLASS NAMES!!!111!!1!1! */
     article.co-themed-box.co-post-box[data-theme],
     .co-themed-box.co-comment-box[data-theme] {
-        border-color: var(--color-dark0);
-        background-color: var(--color-dark3);
-
+        border-width: var(--ch-noborders);
+        border-color: var(--color-base0);
+        background-color: var(--color-base3);
+        
+        .co-project-display-name {
+            color: var(--color-accent);
+        }
+        
         .co-info-box.co-18-plus {
             border-color: var(--color-prose-300);
             color: var(--color-prose-300);
-            background-color: var(--color-dark3);
+            background-color: var(--color-base3);
         }
 
         .co-info-box {
             border-color: var(--color-prose-alt-100);
             color: var(--color-prose-alt-100);
-            background-color: var(--color-dark1);
+            background-color: var(--color-base1);
         }
 
         .co-embedded-ask {
-            border-color: var(--color-dark0);
-            background-color: var(--color-dark3);
+            border-color: var(--color-base0);
+            background-color: var(--color-base3);
             color: var(--color-prose-alt-100);
             .co-attribution {
                 color: var(--color-prose-alt-100);
@@ -244,29 +265,34 @@
         .co-post-header,
         .co-thread-footer,
         .co-embed {
-            background-color: var(--color-dark2);
+            background-color: var(--color-base2);
             color: var(--color-prose-100);
         }
 
         .co-hairline {
-            border-color: var(--color-dark0);
+            border-color: var(--color-base0);
+        }
+        
+        .co-action-button {
+            color: var(--color-accent);
         }
     }
 
     /* Notifications page */
     .co-themed-box[data-theme].co-notification-group {
-        background-color: var(--color-dark2);
+        background-color: var(--color-base2);
         color: var(--color-prose-100);
-        border-color: var(--color-dark0);
+        border-color: var(--color-base0);
+        border-width: var(--ch-noborders);
         
         header {
-            background-color: var(--color-dark0);
+            background-color: var(--color-base0);
         }
 
         .co-notification-card:not([hidden]) {
-            border-color: var(--color-dark0);
+            border-color: var(--color-base0);
             &:hover {
-                background-color: var(--color-dark3);
+                background-color: var(--color-base3);
             }
             
             .co-inline-quote, .co-block-quote {
@@ -276,8 +302,8 @@
         }
         
         &.co-filter-controls > ul {
-            border-color: var(--color-dark0)!important;
-            > li {border-color: var(--color-dark0)!important;}
+            border-color: var(--color-base0)!important;
+            > li {border-color: var(--color-base0)!important;}
         }
         /* i have to use !important because this is their selector:
             [data-theme="dark"].co-themed-box .co-notification-group.co-filter-controls ul > :not([hidden]) ~ :not([hidden]),
@@ -287,7 +313,7 @@
     }
 
     .bg-tertiary-300 {
-        background-color: var(--color-dark3);
+        background-color: var(--color-base3);
     }
 
     .border-notWhite {
@@ -303,7 +329,7 @@
     }
 
     .bg-notBlack {
-        background-color: var(--color-dark2);
+        background-color: var(--color-base2);
     }
 
     .text-text {
@@ -326,7 +352,7 @@
     }
 
     .hover\:bg-cherry-600:active {
-        background-color: var(--color-dark0);
+        background-color: var(--color-base0);
         color: var(--color-accent);
     }
 
@@ -335,7 +361,7 @@
     }
 
     button[class*="bg-cherry"] {
-        background-color: var(--color-dark0);
+        background-color: var(--color-base0);
         color: var(--color-accent-contrast);
     }
 
@@ -344,7 +370,7 @@
     }
 
     button.disabled\:bg-cherry-200:disabled {
-        background-color: var(--color-dark2);
+        background-color: var(--color-base2);
         color: var(--color-accent-contrast-dark);
     }
 
@@ -357,7 +383,7 @@
     }
 
     input[type="checkbox"]:disabled {
-        background-color: var(--color-dark2);
+        background-color: var(--color-base2);
         color: var(--color-accent-contrast-dark);
     }
 
@@ -367,7 +393,7 @@
 
     .hover\:bg-foreground-700:hover {
         background-color: var(--color-accent);
-        color: var(--color-dark3);
+        color: var(--color-base3);
     }
 
     .hover\:border-cherry-600:hover {
@@ -389,12 +415,12 @@
     .group:hover .group-hover\:bg-cherry-600 {
         /* account switcher */
         background-color: var(--color-accent);
-        color: var(--color-dark2);
+        color: var(--color-base2);
     }
 
     .group:hover .group-hover\:bg-cherry-600 svg {
         background-color: var(--color-accent);
-        color: var(--color-dark2);
+        color: var(--color-base2);
     }
 
     .hover\:text-text:hover {
@@ -415,7 +441,7 @@
     }
 
     .active\:bg-cherry-600:active {
-        background-color: var(--color-dark3);
+        background-color: var(--color-base3);
         border-color: var(--color-accent);
     }
 
@@ -423,9 +449,9 @@
     [data-theme].co-themed-box {
         button.co-outline-button,
         button.co-link-button {
-            background: var(--color-dark3);
-            border-color: var(--color-prose-alt-100);
-            color: var(--color-prose-alt-100);
+            background: inherit;
+            border-color: var(--color-accent);
+            color: var(--color-accent);
             &:hover {
                 border-color: var(--color-accent);
                 color: var(--color-accent);
@@ -439,7 +465,7 @@
 
         button.co-filled-button, .co-filled-button {
             background-color: var(--color-prose-alt-100);
-            color: var(--color-dark2);
+            color: var(--color-base2);
             &:hover {
                 background-color: var(--color-accent);
             }
@@ -457,13 +483,13 @@
             }
         }
         
-        .co-link-button {
+        .co-link-button, .co-ui-text {
             color: var(--color-accent);
         }
         
         .co-from-body {
             /* "read more" gradient */
-            --tw-gradient-from: var(--color-dark3) var(--tw-gradient-from-position);
+            --tw-gradient-from: var(--color-base3) var(--tw-gradient-from-position);
         }
     }
 
@@ -473,7 +499,7 @@
     }
 
     .bg-foreground-800 {
-        background-color: var(--color-dark3);
+        background-color: var(--color-base3);
     }
 
     .hover\:bg-foreground-600:hover {
@@ -482,7 +508,7 @@
 
     [class*=divide-foreground] > :not([hidden]) ~ :not([hidden]) {
         /* why ... ...*/
-        border-color: var(--color-dark2);
+        border-color: var(--color-base2);
     }
 
     [class*=divide-cherry] > :not([hidden]) ~ :not([hidden]) {
@@ -524,7 +550,7 @@
 
     .hover\:bg-cherry-100:hover {
         background-color: var(--color-accent);
-        color: var(--color-dark2);
+        color: var(--color-base2);
     }
 
     [class*="text-mango"] {
@@ -560,7 +586,7 @@
     }
 
     [class*="border-gray"] {
-        border-color: var(--color-dark1);
+        border-color: var(--color-base1);
     }
 
     nav [href*="compose"] {
@@ -579,14 +605,13 @@
     }
 
     /* Post Composer */
-    .caret-gray-700 {
-        caret-color: var(--color-prose-100);
-    }
+
 
     [data-theme].co-themed-box.co-comment-box,
     [data-theme].co-themed-box.co-post-box {
         .co-composer-text-box,
         .co-editable-body {
+            border-width: var(--ch-noborders);
             border-color: var(--color-prose-300);
             color: var(--color-prose-100);
             background-color: transparent;
@@ -601,13 +626,17 @@
         }
 
         .co-tab-bar {
-            background-color: var(--color-dark0);
+            background-color: var(--color-base0);
             color: var(--color-accent);
             &.co-active {
                 background-color: var(--color-accent);
-                color: var(--color-dark0);
+                color: var(--color-base0);
             }
         }
+    }
+    
+    .caret-gray-700 {
+        caret-color: var(--color-prose-100);
     }
 
     textarea::placeholder {
@@ -653,7 +682,7 @@
     [multiple],
     textarea,
     select {
-        background-color: var(--color-dark1);
+        background-color: var(--color-base1);
         color: var(--color-prose-100);
         border-color: var(--color-accent);
     }
@@ -680,8 +709,8 @@
     /* post now v button */
     .border-r-composeButton-400,
     .bg-composeButton {
-        border-right-color: var(--color-dark2);
-        background: var(--color-dark1)
+        border-right-color: var(--color-base2);
+        background: var(--color-base1)
     }
     .hover\:bg-composeButton-600:hover {
         background-color: var(--color-accent);
@@ -731,7 +760,7 @@
         --tw-prose-captions: var(--color-prose-200);
         --tw-prose-code: var(--color-prose-100);
         --tw-prose-pre-code: var(--color-prose-100);
-        --tw-prose-pre-bg: var(--color-dark1);
+        --tw-prose-pre-bg: var(--color-base1);
         --tw-prose-th-borders: var(--color-prose-100);
         --tw-prose-td-borders: var(--color-prose-100);
     }
@@ -741,7 +770,7 @@
     }
 
     input[type="checkbox"] {
-        background-color: var(--color-dark1);
+        background-color: var(--color-base1);
         color: var(--color-accent);
     }
 
@@ -749,10 +778,6 @@
         margin-left: 0!important;
         margin-right: 0!important;
         border-color: var(--color-prose-100);
-    }
-
-    :not(svg):not(.mask).dark\:cohost-shadow-dark {
-        box-shadow: none;
     }
 
     article {
@@ -788,13 +813,14 @@
     }
 
     .bg-sidebarBg {
-        background-color: var(--color-dark2);
-        border-color: var(--color-dark0);
+        background-color: var(--color-base2);
+        border-color: var(--color-base0);
+        border-width: var(--ch-noborders);
     }
 
     .hover\:border-sidebarAccent:hover {
         border-color: transparent;
-        background-color: var(--color-dark1);
+        background-color: var(--color-base1);
     }
 
     /* sidebar notif counter */
@@ -807,7 +833,7 @@
     .divide-gray-300 > :not([hidden]) ~ :not([hidden]),
     [class*="border-b-gray"] {
         --tw-divide-opacity: 1;
-        border-color: var(--color-dark1);
+        border-color: var(--color-base1);
     }
 
     .hover\:bg-gray-200:hover {
@@ -822,7 +848,7 @@
 
     .from-white {
         /* gradient on "read more" cuts */
-        --tw-gradient-from: var(--color-dark2);
+        --tw-gradient-from: var(--color-base2);
         --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(255 255 255 / 0));
     }
 
@@ -834,7 +860,7 @@
 
     .-cohost-dedup-link {
         /* post deduplication script compatibility https://github.com/nex3/cohost-dedup */
-        background: linear-gradient(0deg, var(--color-bg-faded), var(--color-dark3));
+        background: linear-gradient(0deg, var(--color-bg-faded), var(--color-base3));
         color: var(--color-accent);
     }
 }
