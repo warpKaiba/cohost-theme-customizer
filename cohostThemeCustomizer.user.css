@@ -3,7 +3,7 @@
 @description  Customizable theme for cohost
 @namespace    cohost.org/kiophen
 @author       kiophen
-@version      3.1.1
+@version      3.1.2
 @license      MIT
 @preprocessor less
 @updateURL    https://github.com/warpKaiba/cohost-theme-customizer/raw/main/cohostThemeCustomizer.user.css
@@ -258,13 +258,32 @@
         background-color: var(--color-dark2);
         color: var(--color-prose-100);
         border-color: var(--color-dark0);
+        
         header {
             background-color: var(--color-dark0);
         }
 
         .co-notification-card:not([hidden]) {
             border-color: var(--color-dark0);
+            &:hover {
+                background-color: var(--color-dark3);
+            }
+            
+            .co-inline-quote, .co-block-quote {
+                color: var(--color-prose-alt-100);
+                border-color: var(--color-accent)
+            }
         }
+        
+        &.co-filter-controls > ul {
+            border-color: var(--color-dark0)!important;
+            > li {border-color: var(--color-dark0)!important;}
+        }
+        /* i have to use !important because this is their selector:
+            [data-theme="dark"].co-themed-box .co-notification-group.co-filter-controls ul > :not([hidden]) ~ :not([hidden]),
+            [data-theme="dark"].co-themed-box.co-notification-group.co-filter-controls ul > :not([hidden]) ~ :not([hidden])
+        come ON
+        */
     }
 
     .bg-tertiary-300 {
@@ -432,7 +451,10 @@
         
         input[type="checkbox"] {
             border-color: var(--color-accent);
-            background-color:transparent;
+            background-color: var(--color-accent);
+            &:checked {
+                background-color: var(--color-accent);
+            }
         }
         
         .co-link-button {
