@@ -3,7 +3,7 @@
 @description  Customizable theme for cohost
 @namespace    cohost.org/kiophen
 @author       kiophen
-@version      3.1.2
+@version      3.1.3
 @license      MIT
 @preprocessor less
 @updateURL    https://github.com/warpKaiba/cohost-theme-customizer/raw/main/cohostThemeCustomizer.user.css
@@ -585,7 +585,7 @@
 
     [data-theme].co-themed-box.co-comment-box,
     [data-theme].co-themed-box.co-post-box {
-        .co-composer-textbox,
+        .co-composer-text-box,
         .co-editable-body {
             border-color: var(--color-prose-300);
             color: var(--color-prose-100);
